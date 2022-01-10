@@ -1,7 +1,8 @@
 const express = require('express');
 const cluster = require('cluster');
-const { is } = require('type-is');
+const { fork } = require('child_process');
 const numCPUs = require('os').cpus().length;
+
 
 const app = express();
 
@@ -31,7 +32,16 @@ else
     })
 
     app.get('/api/randoms', ( req , res ) => {
-        res.send(`Servidor express in ${PORT} - <b> PID ${process.pid}</b> - ${new Date().toLocaleString()}`)
+        let cantidad = req.query.cant;
+
+        if (!cantidad || isNaN(cantidad)) {
+            cantidad = 1000000000;
+        }
+        const objeto = fork('./src/utils/calcRandomNumbers')
+        objeto.send(cantidad);
+        objeto.on('message', numeros => {
+            res.send(numeros)
+        })
     })
 
     app.get('/info', ( req , res ) => {
