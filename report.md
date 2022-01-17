@@ -1,5 +1,17 @@
 # REPORT
 
+## Gzip
+
+### with compression
+```
+  size: 322B
+```
+
+### without compression
+```
+  size: 322B
+```
+
 ## Artillery
 
 ### Result of profaling with node without `console.log`

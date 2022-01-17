@@ -49,7 +49,7 @@ else
         })
     })
 
-    app.get('/info', ( req , res ) => {
+    app.get('/info', compression() , ( req , res ) => {
         logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
         
         console.log('CODIGO SINCRONICO (demosra tiempo y bloquea la ejecucion de las siguientes lineas');
