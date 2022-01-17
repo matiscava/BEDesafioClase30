@@ -1,10 +1,13 @@
 const express = require('express');
 const cluster = require('cluster');
 const { fork } = require('child_process');
+const logger = require('./src/logger');
+const compression = require('compression');
 const numCPUs = require('os').cpus().length;
 
 
 const app = express();
+app.use(compression())
 
 const isCluster = process.argv[2] === 'CLUSTER';
 
@@ -28,10 +31,12 @@ else
     const PORT = parseInt(process.argv[2]) || 8081;
 
     app.get('/', ( req , res ) => {
+        logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
         res.send(`Servidor express in ${PORT} - <b> PID ${process.pid}</b> - ${new Date().toLocaleString()}`)
     })
 
     app.get('/api/randoms', ( req , res ) => {
+        logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
         let cantidad = req.query.cant;
 
         if (!cantidad || isNaN(cantidad)) {
@@ -45,6 +50,10 @@ else
     })
 
     app.get('/info', ( req , res ) => {
+        logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+        
+        console.log('CODIGO SINCRONICO (demosra tiempo y bloquea la ejecucion de las siguientes lineas');
+        
         res.send(`Servidor express in ${PORT} - <b> PID ${process.pid}</b> - ${new Date().toLocaleString()} - Cantidad de procesadores: ${numCPUs}`)
     })   
 

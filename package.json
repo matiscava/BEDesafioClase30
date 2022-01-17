@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "node auto-test.js",
+    "start": "0x server.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/matiscava/BEDesafioClase30#readme",
   "dependencies": {
+    "compression": "^1.7.4",
     "express": "^4.17.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "winston": "^3.4.0"
+  },
+  "devDependencies": {
+    "autocannon": "^7.6.0"
   }
 }
